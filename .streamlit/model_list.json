@@ -1,0 +1,9 @@
+{
+    "Ollama": [
+        "gemma4:latest",
+        "nemotron3:33b"
+    ],
+    "OpenAI": [
+        "gpt-5.4-mini"
+    ]
+}
