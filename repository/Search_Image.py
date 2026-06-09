@@ -54,7 +54,7 @@ if not search_query:
                         encrypted_image = f.read()
                     decrypted_image = fernet.decrypt(encrypted_image)
                     image = Image.open(BytesIO(decrypted_image)).convert("RGB")
-                    st.image(image)
+                    st.image(image, width="stretch")
 ## Only simarity search
 # else:
 #     start_time = time.time()

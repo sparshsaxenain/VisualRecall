@@ -55,8 +55,9 @@ with st.sidebar:
     if 'LLM_model' not in st.session_state or 'LLM_model' in st.session_state:
         st.session_state.LLM_model = st.selectbox("Select LLM Model", options=st.session_state.LLM_CONFIG[st.session_state.LLM_provider])
 
-i = 0
-for uploaded_file in uploaded_files:
+progress_text = "Operation in progress. Please wait."
+progress_bar = st.progress(0, text=progress_text)
+for percent_complete, uploaded_file in enumerate(uploaded_files, start=1):
     image = Image.open(uploaded_file).convert("RGB")
     start_time = time.time()
     buffer = BytesIO()
@@ -177,5 +178,6 @@ for uploaded_file in uploaded_files:
     )
     st.image(Image.fromarray(image_np), caption=uploaded_file.name)
     end_time = time.time()
-    st.write(f"Time taken to process {uploaded_file.name}: {end_time - start_time:.2f} seconds")
-    i += 1
+    progress_bar.progress(percent_complete / len(uploaded_files), text=f"Time taken to process {uploaded_file.name}: {end_time - start_time:.2f} seconds")
+progress_bar.empty()
+uploaded_files.clear()
