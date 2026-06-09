@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import streamlit as st
 
 
@@ -7,15 +6,15 @@ PLAN_DIAGRAM = Path("assets/plan.png")
 
 
 def render_homepage() -> None:
-    if not st.user.is_logged_in:
-        st.warning(
-            "Login is required to upload and search your own image library. "
-            "To get test access, raise an issue with your email address and "
-            "access will be enabled within 24 hours."
-        )
-        st.button("Log in with Google", on_click=st.login)
-    else:
-        st.success("You are logged in and can use Upload Image and Search Image.")
+    # if not st.user.is_logged_in:
+    #     st.warning(
+    #         "Login is required to upload and search your own image library. "
+    #         "To get test access, raise an issue with your email address and "
+    #         "access will be enabled within 24 hours."
+    #     )
+    #     st.button("Log in with Google", on_click=st.login)
+    # else:
+    #     st.success("You are logged in and can use Upload Image and Search Image.")
 
     st.title("Visual Recall")
     st.caption("Private, AI-powered image memory for search, browsing, and retrieval.")
@@ -306,7 +305,7 @@ st.set_page_config(page_title="Visual Recall", page_icon=":mag:", layout="wide")
 
 menu_pages = [st.Page(render_homepage, title="Home", icon=":material/home:")]
 
-if st.user.is_logged_in:
+with st.sidebar:
     menu_pages.extend(
         [
             st.Page("repository/Upload_Image.py", title="Upload Image", icon=":material/upload:"),
