@@ -23,12 +23,12 @@ with st.sidebar:
     k = st.slider("Number of results to show", min_value=1, max_value=20, value=5, step=1)
 
 # show all images from chromadb in batch of 50
-client = chromadb.PersistentClient(path=f"dbs/{st.user.name}")
 try:
+    client = chromadb.PersistentClient(path=f"dbs/{st.session_state.session_id}")
     db = client.get_collection(name="images")
     key_db = client.get_collection(name="keys")
     key = key_db.get(ids=["encryption_key"])["documents"][0].encode()
-except chromadb.errors.NotFoundError:
+except Exception as e:
     st.warning("No images found. Please upload some images first.")
     st.stop()
 batch_size = 50
